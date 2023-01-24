@@ -1,8 +1,13 @@
-//Example action
+export const updatePbAction = (dispatch, pocketbase) => {
+    dispatch({
+        type: 'UPDATE_PB',
+        newPb: pocketbase
+    })
+}
 
-// export const setGallery = (dispatch, gallery) => {
-//     dispatch({
-//         type: 'SET_GALLERY',
-//         gallery: gallery
-//     })
-// }
+export const getPostsAction = (dispatch, postsList) => {
+    dispatch({
+        type: 'SET_POSTS',
+        postsList: postsList.items
+    })
+}

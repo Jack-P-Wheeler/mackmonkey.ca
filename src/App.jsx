@@ -1,6 +1,19 @@
-import Home from "./Home"
+import { useContext, useEffect } from "react"
+import Home from "./pages/Home"
+import { Store } from "./StoreContext"
+import { updatePbAction } from "./actions"
 
-function App() {
+const App = () => {
+  const {state, dispatch} = useContext(Store)
+  const {pb} = state
+  useEffect(() => {
+    const getAuth = async () => {
+      const authData = await pb.collection('users').authRefresh();
+      console.log(pb)
+      updatePbAction(dispatch, await pb)
+    }
+    getAuth()
+  }, [])
   return (
     <div className="App flex justify-center">
       <Home/>
