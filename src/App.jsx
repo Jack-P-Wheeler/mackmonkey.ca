@@ -2,7 +2,7 @@ import Home from "./Home"
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex justify-center">
       <Home/>
     </div>
   )

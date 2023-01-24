@@ -1,32 +1,32 @@
-import { useEffect, useState } from "react"
-import PocketBase from 'pocketbase';
+import { useContext, useEffect, useState } from "react"
+
+
+import MessageLittle from "./components/MessageLittle";
+import LoginForm from "./components/LoginForm";
+import { Store } from "./StoreContext";
+import CreateAccountForm from "./components/CreateAccountForm";
+import PostMessageForm from "./components/PostMessageForm";
 
 const Home = () => {
-    const pb = new PocketBase('http://mackmonkey.ca:8090');
+    const {state} = useContext(Store)
+    const {pb} = state
+
     const [posts, setPosts] = useState([])
     const [message, setMessage] = useState("")
-    const [authData, setAuthData] = useState({})
 
     const getPosts = async () => {
         const records = await pb.collection('messages').getFullList(200 /* batch size */, {
             sort: '-created',
+            expand: 'user'
         });
         return records
-    }
-
-    const loginAuthWithPassword = async (username, password) => {
-        const authData = await pb.collection('users').authWithPassword(
-            username,
-            password,
-        );
-        setAuthData(authData)
     }
 
     const postMessage = async (ev) => {
         ev.preventDefault()
         const data = {
             "message": message,
-            "user": authData.record.id
+            "user": pb.authStore.model.id
         };
         
         const record = await pb.collection('messages').create(data);
@@ -34,6 +34,7 @@ const Home = () => {
 
     useEffect(() => {
         getPosts().then((res) => {
+            console.log(res)
             setPosts(res)
         }).catch((err) => {
             console.log(err)
@@ -43,15 +44,15 @@ const Home = () => {
 
     return (
         <section>
-            <button className="border rounded-sm" onClick={(ev) => loginAuthWithPassword("Test_user", "Test_pass")}>Login</button>
-            <form onSubmit={(ev) => postMessage(ev)}>
-                <input value={message} onChange={(ev) => setMessage(ev.target.value)}></input>
-                <button>Post</button>
-            </form>
-            <h1>View Posts:</h1>
+            <PostMessageForm/>
+            <LoginForm/>
+            <CreateAccountForm/>
+
+            <h1 className="text-xl mb-10">View Posts:</h1>
             {posts.length && posts.map((post) => {
                 return (
-                    <h1 key={post.id}>{post.message}</h1>
+                    <MessageLittle key={post.id} user={post.expand.user} message={post.message} time={post.created} />
+                    
                 )
             })}
         </section>
