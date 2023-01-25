@@ -11,3 +11,10 @@ export const getPostsAction = (dispatch, postsList) => {
         postsList: postsList.items
     })
 }
+
+export const setOrganizationAction = (dispatch, orgInfo) => {
+    dispatch({
+        type: "SET_ORG",
+        organization: orgInfo
+    })
+}

@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('https://api.mackmonkey.ca');
+const pb = new PocketBase('http://104.200.31.44:8090');
 
 const initialState = {
     posts: [],
@@ -19,12 +19,18 @@ const updatePb = (state, newPb) => {
     return ({...state, pb: newPb})
 }
 
+const setOrg = (state, organization) => {
+    return ({...state, org: organization})
+}
+
 const reducer = (state, action) => {
     switch (action.type) {
         case "SET_POSTS":
             return setPosts(state, action.postsList)
         case "UPDATE_PB":
             return updatePb(state, action.newPb)
+        case "SET_ORG":
+            return setOrg(state, action.organization)
         default:
             console.log(`No action of type "${action.type}"`)
             return state
