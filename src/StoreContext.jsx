@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('http://mackmonkey.ca:8090');
+const pb = new PocketBase('https://api.mackmonkey.ca');
 
 const initialState = {
     posts: [],

@@ -5,7 +5,7 @@ const MessageLittle = ({user, message, time}) => {
         <div className="mb-2 border rounded-md p-4">
             <div className="flex items-center mb-4 ">
                 <div className="rounded-full h-12 overflow-hidden">
-                    <img src={"http://mackmonkey.ca:8090/api/files/_pb_users_auth_/vdhj6den491fa73/" + user.avatar} className="w-12"/>
+                    <img src={"https://api.mackmonkey.ca/api/files/_pb_users_auth_/vdhj6den491fa73/" + user.avatar} className="w-12"/>
                 </div>
                 
                 <p className="ml-4">{user.username}</p>

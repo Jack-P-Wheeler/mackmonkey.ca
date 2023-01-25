@@ -1,6 +1,3 @@
-import { useContext, useEffect, useState } from "react"
-
-
 import LoginForm from "../components/LoginForm";
 import CreateAccountForm from "../components/CreateAccountForm";
 import PostMessageForm from "../components/PostMessageForm";
@@ -19,7 +16,7 @@ const Home = () => {
             <section>
                 <LoginForm/>
             </section>
-            <section>
+            <section className="row-span-2">
                 <CreateAccountForm/>
             </section>
             <section className="row-span-2">
