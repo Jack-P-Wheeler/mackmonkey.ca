@@ -22,15 +22,17 @@ const App = () => {
   }, [])
 
   useEffect(() => {
+    console.log("Bruh")
     const getOrganization = async () => {
+      
         const allDocuments = await pb.collection('documents').getFullList(200 /* batch size */, {
             sort: '-created',
-            expand: 'author'
+            expand: 'author, category, team'
         });
 
         const lastUpdatedDocuments = await pb.collection('documents').getList(1, 3, {
             sort: '-updated',
-            expand: 'author'
+            expand: 'author, category, team'
         });
 
         const organizationData = {

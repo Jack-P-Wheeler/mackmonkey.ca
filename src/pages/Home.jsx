@@ -1,7 +1,6 @@
 import LoginForm from "../components/LoginForm";
 import CreateAccountForm from "../components/CreateAccountForm";
 import PostMessageForm from "../components/PostMessageForm";
-import PostLoader from "../components/DocumentLoader";
 import InfoPopup from "../components/InfoPopup";
 import WarningPopup from "../components/WarningPopup";
 import HazardPopup from "../components/HazardPopup";
@@ -19,9 +18,6 @@ const Home = () => {
                 </section>
                 <section className="row-span-2">
                     <CreateAccountForm/>
-                </section>
-                <section className="row-span-2">
-                    {/* <PostLoader/> */}
                 </section>
                 <section className="grid gap-2">
                     <InfoPopup>This is some info.</InfoPopup>
