@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lexical/react": "^0.7.6",
     "draft-js": "^0.11.7",
+    "lexical": "^0.7.6",
     "pocketbase": "^0.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -4,10 +4,10 @@ import Organization from "./pages/Organization"
 import Document from "./pages/Document"
 import { Store } from "./StoreContext"
 import { updatePbAction } from "./actions"
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Header from "./components/Header"
 import Documents from "./pages/Documents"
-import { setOrganizationAction } from "./actions"
+import { getOrganization } from "./getOrgData"
 
 
 const App = () => {
@@ -22,29 +22,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    console.log("Bruh")
-    const getOrganization = async () => {
-      
-        const allDocuments = await pb.collection('documents').getFullList(200 /* batch size */, {
-            sort: '-created',
-            expand: 'author, category, team'
-        });
-
-        const lastUpdatedDocuments = await pb.collection('documents').getList(1, 3, {
-            sort: '-updated',
-            expand: 'author, category, team'
-        });
-
-        const organizationData = {
-            allDocuments,
-            lastUpdatedDocuments: lastUpdatedDocuments.items
-        }
-
-        console.log(organizationData)
-
-        setOrganizationAction(dispatch, organizationData)
-    }
-    getOrganization()
+    getOrganization(pb, dispatch)
 }, [])
   return (
     <Router>
@@ -53,7 +31,7 @@ const App = () => {
       <Routes>
           <Route path="/" element={<Organization/>} />
           <Route path="/doc/:documentId" element={<Document/>} />
-          <Route path="/docs" element={<Documents/>} />
+          <Route path="/docs/:category" element={<Documents/>} />
           <Route path="/elements" element={<Home/>} />
           <Route path="*" element={<h1>No match</h1>}/>
         </Routes>

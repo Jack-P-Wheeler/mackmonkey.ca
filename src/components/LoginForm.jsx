@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { Store } from "../StoreContext"
 import { updatePbAction } from "../actions"
-import { setOrganizationAction } from "../actions"
+import { getOrganization } from "../getOrgData"
 
 const LoginForm = () => {
     const {state, dispatch} = useContext(Store)
@@ -21,28 +21,8 @@ const LoginForm = () => {
             updatePbAction(dispatch, pb)
             console.log(authData)
 
-            const getOrganization = async () => {
-
-                const allDocuments = await pb.collection('documents').getFullList(200 /* batch size */, {
-                    sort: '-created',
-                    expand: 'author, category, team'
-                });
-        
-                const lastUpdatedDocuments = await pb.collection('documents').getList(1, 3, {
-                    sort: '-updated',
-                    expand: 'author, category, team'
-                });
-        
-                const organizationData = {
-                    allDocuments,
-                    lastUpdatedDocuments: lastUpdatedDocuments.items
-                }
-        
-                console.log(organizationData)
-        
-                setOrganizationAction(dispatch, organizationData)
-            }
-            getOrganization()
+            
+            getOrganization(pb, dispatch)
         } catch(err) {
             console.log(err)
         }
