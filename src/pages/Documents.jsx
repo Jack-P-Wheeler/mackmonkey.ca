@@ -16,7 +16,7 @@ const Documents = () => {
     return (
         <section>
             <Search searchData={searchData} setSearchData={setSearchData}/>
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-3 mx-4">
             {state.org
                         ? state.org.allDocuments.map((doc) => {
                             return (
