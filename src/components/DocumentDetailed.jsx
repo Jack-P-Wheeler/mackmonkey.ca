@@ -22,10 +22,13 @@ const DocumentDetailed = ({ doc, searchData }) => {
             {doc.title.toLowerCase().includes(searchData.term.toLowerCase())
                 ? documentTitle()
                 : <p className="text-3xl">{doc.title}</p>}
+                
+            <div className="flex flex-col">
+                {doc.expand.category
+                    ? doc.expand.category.map((cat) => <InfoTagSmall color={cat.color} name={cat.name} />)
+                    : null}
+            </div>
 
-            {doc.expand.category
-                ? doc.expand.category.map((cat) => <InfoTagSmall color={cat.color} name={cat.name} />)
-                : null}
 
             <p className="italic mt-auto">Last updated: {formatDate(doc.updated)}</p>
 

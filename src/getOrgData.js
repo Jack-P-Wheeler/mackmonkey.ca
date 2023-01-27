@@ -13,7 +13,7 @@ export const getOrganization = async (pb, dispatch) => {
     });
 
     const categories = await pb.collection('buckets').getFullList(200 /* batch size */, {
-        sort: '-name',
+        sort: '+name',
     });
 
     const organizationData = {

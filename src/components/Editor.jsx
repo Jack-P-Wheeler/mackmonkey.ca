@@ -23,7 +23,7 @@ import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 import "../components/editor.css"
 import { useRef } from "react";
 
-const Editor = ({ docData, pb, setDocData }) => {
+const Editor = ({ docData, setDocData, saveDocumentUpdate }) => {
   const editorStateRef = useRef();
   const editorConfig = {
     // The editor theme
@@ -56,7 +56,9 @@ const Editor = ({ docData, pb, setDocData }) => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
-        <ToolbarPlugin />
+        <ToolbarPlugin saveDocumentUpdate={saveDocumentUpdate}/>
+
+        
         <div className="editor-inner">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}

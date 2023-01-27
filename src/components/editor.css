@@ -244,6 +244,10 @@ h1 {
     margin-left: 16px;
 }
 
+.editor-list-ol li {
+    list-style-type:decimal
+}
+
 .editor-list-ul {
     padding: 0;
     margin: 0;

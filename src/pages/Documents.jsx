@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Store } from "../StoreContext"
 import { Link } from "react-router-dom"
 import Search from "../components/Search"
@@ -8,6 +8,9 @@ import DocumentDetailed from "../components/DocumentDetailed"
 const Documents = () => {
     const {state} = useContext(Store)
     const [searchData, setSearchData] = useState({term: "", author: "", category: "", team: ""})
+    const [textLookup, setTextLookup] = useState({})
+
+
 
     const formatFilterData = () => {
         let newFilterData = {author: [], category: [], team: []}
@@ -34,12 +37,36 @@ const Documents = () => {
     }
 
     const passSearchFilter = (doc) => {
-        return ((doc.title.toLowerCase().includes(searchData.term.toLowerCase())) 
+        return ((doc.title.toLowerCase().includes(searchData.term.toLowerCase()) || textLookup[doc.id].toLowerCase().includes(searchData.term.toLowerCase())) 
         && (searchData.author === "" || doc.expand.author.name === searchData.author)
         && (searchData.category === "" || doc.expand.category && doc.expand.category.some((cat) => cat.name  === searchData.category))
         && (searchData.team === "" || doc.expand.team && doc.expand.team.some((team) => team.name  === searchData.team)))
     }
 
+    const reduceJson = (array, init) => {
+        const reduced = array.reduce((acc, c) => {
+            if (c.children) {
+                return acc + reduceJson(c.children, init)
+            } else {
+                return acc + c.text
+            }
+        }, init)
+        return reduced
+    }
+
+    const calculateTextLookup = () => {
+        let newLookupText = {}
+        if (state.org) {
+            state.org.allDocuments.forEach((doc) => {
+                newLookupText = {...newLookupText, [doc.id]: reduceJson(doc.rich_text.root.children, "")}
+            })
+        }
+        setTextLookup(newLookupText)
+    }
+
+    useEffect(() => {
+        calculateTextLookup()
+    }, [state.org])
     
     return (
         <section>
@@ -48,6 +75,7 @@ const Documents = () => {
                 <Search searchData={searchData} setSearchData={setSearchData} filterData={formatFilterData()}/>
                 <div className="grid grid-cols-3 mx-4">
                         {state.org.allDocuments.map((doc) => {
+                            // console.log(reduceJson(doc.rich_text.root.children, ""))
                             return (
                                 (passSearchFilter(doc))
                                 ? <DocumentDetailed doc={doc} searchData={searchData}/>

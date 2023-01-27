@@ -414,7 +414,7 @@ function BlockOptionsDropdownList({
     );
 }
 
-export default function ToolbarPlugin() {
+export default function ToolbarPlugin({saveDocumentUpdate}) {
     const [editor] = useLexicalComposerContext();
     const toolbarRef = useRef(null);
     const [canUndo, setCanUndo] = useState(false);
@@ -537,6 +537,9 @@ export default function ToolbarPlugin() {
 
     return (
         <div className="toolbar" ref={toolbarRef}>
+            <button className="border-blue-500 border px-2 py-1 rounded-md bg-blue-400 shadow-inner font-bold text-white hover:underline mr-16" label="Save" onClick={() => {
+                saveDocumentUpdate()
+            }}>Save</button>
             <button
                 disabled={!canUndo}
                 onClick={() => {
