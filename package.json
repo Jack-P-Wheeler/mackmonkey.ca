@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iconscout/react-unicons": "^1.1.6",
     "@lexical/react": "^0.7.6",
     "draft-js": "^0.11.7",
     "lexical": "^0.7.6",

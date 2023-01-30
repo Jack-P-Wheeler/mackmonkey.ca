@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Editor from "../components/Editor"
 import { Store } from "../StoreContext"
 import { getOrganization } from "../getOrgData"
 import InfoTagSmallButton from "../components/InfoTagSmallButton"
 import ParentChildTree from "../components/ParentChildTree"
+import { UilExclamationTriangle } from '@iconscout/react-unicons'
 
 
 const Document = () => {
@@ -12,6 +13,7 @@ const Document = () => {
     const [docData, setDocData] = useState(null)
     const {state, dispatch} = useContext(Store)
     const {pb} = state
+    const navigate = useNavigate()
 
     const getDocument = async () => {
         const documentRes = await pb.collection('documents').getOne(documentId, {
@@ -38,6 +40,12 @@ const Document = () => {
         const record = await pb.collection('documents').update(docData.id, data);
         getDocument()
         getOrganization(pb, dispatch)
+    }
+
+    const deleteDocument = async () => {
+        await pb.collection('documents').delete(docData.id);
+        getOrganization(pb, dispatch)
+        navigate("/")
     }
 
     return (
@@ -68,8 +76,13 @@ const Document = () => {
                     <div className="grid lg:grid-cols-2 gap-2">
                         <ParentChildTree documentId={docData.id} documentName={docData.title}/>
                     </div>
+                    <button className="flex bg-red-700 rounded-md border-amber-400 border-4 border-dashed items-center mt-16" onClick={(ev) => deleteDocument()}>
+                        <UilExclamationTriangle className="text-white pl-2"/>
+                        <span className="text-white ml-2 p-2">Delete</span>
+                    </button>
                     
                 </div>
+
             : null}
             
         </div>

@@ -11,7 +11,8 @@ import {
     $getSelection,
     $isRangeSelection,
     $createParagraphNode,
-    $getNodeByKey
+    $getNodeByKey,
+    LexicalEditor
 } from "lexical";
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
 import {

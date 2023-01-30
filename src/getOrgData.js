@@ -3,7 +3,7 @@ import { setOrganizationAction } from "./actions";
 export const getOrganization = async (pb, dispatch) => {
 
     const allDocuments = await pb.collection('documents').getFullList(200, {
-        sort: '-created',
+        sort: '-updated',
         expand: 'author, category, team'
     });
 
