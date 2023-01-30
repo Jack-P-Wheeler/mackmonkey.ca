@@ -21,7 +21,7 @@ const Header = () => {
                     ? <div className="flex flex-col">
                         {
                             state.org.categories.map((category) => {
-                                return <NavLink style={({isActive}) => setBold(isActive)} className="mb-2" to={"/docs/" + category.name}>{category.name}</NavLink>
+                                return <NavLink style={({isActive}) => setBold(isActive)} key={category.id} className="mb-2" to={"/docs/" + category.name}>{category.name}</NavLink>
                             })
                         }
                     </div>

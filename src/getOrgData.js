@@ -2,7 +2,7 @@ import { setOrganizationAction } from "./actions";
 
 export const getOrganization = async (pb, dispatch) => {
 
-    const allDocuments = await pb.collection('documents').getFullList(200 /* batch size */, {
+    const allDocuments = await pb.collection('documents').getFullList(200, {
         sort: '-created',
         expand: 'author, category, team'
     });
@@ -12,17 +12,20 @@ export const getOrganization = async (pb, dispatch) => {
         expand: 'author, category, team'
     });
 
-    const categories = await pb.collection('buckets').getFullList(200 /* batch size */, {
+    const categories = await pb.collection('buckets').getFullList(200, {
+        sort: '+name',
+    });
+
+    const teams = await pb.collection('teams').getFullList(200, {
         sort: '+name',
     });
 
     const organizationData = {
         allDocuments,
         lastUpdatedDocuments: lastUpdatedDocuments.items,
-        categories
+        categories,
+        teams,
     }
-
-    console.log(organizationData)
 
     setOrganizationAction(dispatch, organizationData)
 }

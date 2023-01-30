@@ -1,6 +1,5 @@
 import { useContext, useEffect } from "react"
 import { Store } from "../StoreContext"
-import { Link } from "react-router-dom"
 import Search from "../components/Search"
 import { useState } from "react"
 import DocumentDetailed from "../components/DocumentDetailed"
@@ -73,12 +72,12 @@ const Documents = () => {
             {state.org
             ?<div>
                 <Search searchData={searchData} setSearchData={setSearchData} filterData={formatFilterData()}/>
-                <div className="grid grid-cols-3 mx-4">
+                <div className="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mx-4">
                         {state.org.allDocuments.map((doc) => {
                             // console.log(reduceJson(doc.rich_text.root.children, ""))
                             return (
                                 (passSearchFilter(doc))
-                                ? <DocumentDetailed doc={doc} searchData={searchData}/>
+                                ? <DocumentDetailed key={doc.id} doc={doc} searchData={searchData}/>
                                 : null
                             )
                         })}

@@ -1,16 +1,15 @@
-const InfoTagSmallButton = ({color, id, name, docData, setDocData, isActive = true}) => {
-    const toggleState = () => {
-        console.log("Clicked!")
-        if (docData.category.includes(id)) {
-            setDocData({...docData, category: docData.category.filter((cat) => cat !== id)})
+const InfoTagSmallButton = ({color, id, name, docData, setDocData, type, isActive = true}) => {
+    const toggleCategory = (toggleType) => {
+        if (docData[toggleType].includes(id)) {
+            setDocData({...docData, [toggleType]: docData[toggleType].filter((cat) => cat !== id)})
         } else {
-            setDocData({...docData, category: [...docData.category, id]})
+            setDocData({...docData, [toggleType]: [...docData[toggleType], id]})
         }
     }
+
     return (
-        <button onClick={(ev) => {toggleState()}} style={{"backgroundColor": isActive ? color : "grey", "order": isActive ? "1" : "2"}} className="max-w-fit px-2 rounded-full text-white m-1 text-center relative">
-            <span className="z-10">{name}</span>
-            <span style={{"backgroundColor": isActive ? color : "grey"}} className="absolute left-0 active:animate-ping inline-flex h-full w-full rounded-full active:opacity-75 z-0 opacity-0"></span>
+        <button onClick={(ev) => {toggleCategory(type)}} style={{"backgroundColor": isActive ? color : "grey", "order": isActive ? "1" : "2"}} className="max-w-fit px-4 py-1 rounded-full text-white m-1 text-center relative active:scale-90 transition-all">
+            <span className="z-10 text-sm font-medium">{name}</span>
         </button>
     )
 }

@@ -69,7 +69,7 @@ const Editor = ({ docData, setDocData, saveDocumentUpdate }) => {
             editorStateRef.current = editorState
             setDocData({...docData, rich_text: JSON.stringify(editorStateRef.current)})
             }} />
-          <HistoryPlugin />
+          {/* <HistoryPlugin /> */}
           {/* <TreeViewPlugin /> */}
           <AutoFocusPlugin />
           <CodeHighlightPlugin />

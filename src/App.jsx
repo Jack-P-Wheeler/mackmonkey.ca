@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Header from "./components/Header"
 import Documents from "./pages/Documents"
 import { getOrganization } from "./getOrgData"
+import ExperimentalEditor from "./pages/ExperimentalEditor"
 
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/doc/:documentId" element={<Document/>} />
           <Route path="/docs/:category" element={<Documents/>} />
           <Route path="/elements" element={<Home/>} />
+          <Route path="/exper" element={<ExperimentalEditor/>} />
           <Route path="*" element={<h1>No match</h1>}/>
         </Routes>
       </div>

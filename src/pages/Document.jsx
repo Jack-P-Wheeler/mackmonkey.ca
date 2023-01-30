@@ -4,6 +4,7 @@ import Editor from "../components/Editor"
 import { Store } from "../StoreContext"
 import { getOrganization } from "../getOrgData"
 import InfoTagSmallButton from "../components/InfoTagSmallButton"
+import ParentChildTree from "../components/ParentChildTree"
 
 
 const Document = () => {
@@ -28,7 +29,6 @@ const Document = () => {
     const saveDocumentUpdate = async () => {
         const data = {
             "author": docData.author,
-            "text": docData.text + "Bruh moment",
             "title": docData.title,
             "category": docData.category,
             "team": docData.team,
@@ -50,12 +50,26 @@ const Document = () => {
                         <div className="flex">
                         {state.org.categories.map((cat) => {
                             return (
-                                <InfoTagSmallButton key={cat.id} id={cat.id} color={cat.color} name={cat.name} docData={docData} setDocData={setDocData} isActive={docData.category && docData.category.some((docCat) => docCat === cat.id)}/>
+                                <InfoTagSmallButton key={cat.id} id={cat.id} color={cat.color} name={cat.name} docData={docData} setDocData={setDocData} type="category" isActive={docData.category && docData.category.some((docCat) => docCat === cat.id)}/>
+                            )
+                        })}
+                        </div>
+
+                        <div className="flex">
+                        {state.org.teams.map((team) => {
+                            return (
+                                <InfoTagSmallButton key={team.id} id={team.id} color={team.color} name={team.name} docData={docData} setDocData={setDocData} type="team" isActive={docData.team && docData.team.some((docTeam) => docTeam === team.id)}/>
                             )
                         })}
                         </div>
                     </div>
+
                     <Editor docData={docData} pb={pb} setDocData={setDocData} saveDocumentUpdate={saveDocumentUpdate}/>
+
+                    <div className="grid lg:grid-cols-2 gap-2">
+                        <ParentChildTree documentId={docData.id} documentName={docData.title}/>
+                    </div>
+                    
                 </div>
             : null}
             
