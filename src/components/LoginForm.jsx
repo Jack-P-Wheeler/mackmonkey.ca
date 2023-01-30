@@ -30,7 +30,7 @@ const LoginForm = () => {
     }
 
     return (
-        <form className="border p-4 rounded-md shadow-lg grid grid-cols-1 grid-rows-4" onSubmit={(ev) => loginAuthWithPassword(ev, formData.user, formData.password)}>
+        <form className="border p-4 rounded-md shadow-lg grid grid-cols-1 grid-rows-4 w-72 m-auto" onSubmit={(ev) => loginAuthWithPassword(ev, formData.user, formData.password)}>
                 <label className="flex items-center mb-2">Username/Email</label>
                 <input className="p-1 border ml-2 rounded-md col-span-2 mb-2" value={formData.user} onChange={(ev) => setFormData({...formData, user:ev.target.value})} required></input>
                 <label className="flex items-center mb-2">Password</label>

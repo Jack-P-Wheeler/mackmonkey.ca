@@ -19,6 +19,8 @@ const Document = () => {
         const documentRes = await pb.collection('documents').getOne(documentId, {
             expand: 'author, category',
         });
+        const data = { "visits+": 1 };
+        const record = await pb.collection('documents').update(documentId, data);
         console.log(documentRes)
         setDocData(await documentRes)
     }
@@ -49,9 +51,9 @@ const Document = () => {
     }
 
     return (
-        <div className="flex justify-center">
+        <div className="flex lg:justify-center">
             {docData && state.org
-                ? <div className="m-8">
+                ? <div className="ml-4 mt-8">
                     <div className="mt-8">
                         <input className="text-3xl w-full" value={docData.title} onChange={(ev) => setDocData({...docData, title: ev.target.value})}></input>
                         <div className="flex">
@@ -76,10 +78,14 @@ const Document = () => {
                     <div className="grid lg:grid-cols-2 gap-2">
                         <ParentChildTree documentId={docData.id} documentName={docData.title}/>
                     </div>
-                    <button className="flex bg-red-700 rounded-md border-amber-400 border-4 border-dashed items-center mt-16" onClick={(ev) => deleteDocument()}>
-                        <UilExclamationTriangle className="text-white pl-2"/>
-                        <span className="text-white ml-2 p-2">Delete</span>
-                    </button>
+                    {pb.authStore.model.id === docData.author
+                        ? <button className="flex bg-red-700 rounded-md   mt-16" onClick={(ev) => deleteDocument()}>
+                            <div className="flex items-center px-2">
+                                <UilExclamationTriangle className="text-white" />
+                                <span className="text-white ml-2 p-2 font-bold">Delete</span>
+                            </div>
+                        </button>
+                        : null}
                     
                 </div>
 

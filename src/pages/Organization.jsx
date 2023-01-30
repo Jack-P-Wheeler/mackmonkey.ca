@@ -3,6 +3,7 @@ import { Store } from "../StoreContext"
 import { Link } from "react-router-dom"
 import { getOrganization } from "../getOrgData"
 import DocumentBasic from "../components/DocumentBasic"
+import LoginForm from "../components/LoginForm"
 
 const Organization = () => {
     const {state, dispatch} = useContext(Store)
@@ -31,11 +32,11 @@ const Organization = () => {
     
     return (
         <div className="">
-
             {/* This section is form creating new documents */}
-            <section className="max-w-[1350px]">
-                <form className="mb-24">
-                    <label className="mr-4">Title:</label>
+            {pb.authStore.model ?
+                <section className="max-w-[1350px]">
+                <form className="mb-24 mx-4">
+                    <label className="mx-4">Title:</label>
                     <input className="rounded-full border p-2 mr-4 w-72" value={title} onChange={(ev) => setTitle(ev.target.value)} required></input>
                     <button onClick={(ev) => createNewDocument(ev)} className="border-blue-500 border px-2 py-1 rounded-md bg-blue-400 shadow-inner font-bold text-white col-start-2 mt-4 hover:underline">New Document</button>
                 </form>
@@ -61,6 +62,7 @@ const Organization = () => {
             </div>
                 
             </section>
+            :<LoginForm/>}
         </div>
         
     )

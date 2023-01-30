@@ -18,7 +18,7 @@ const DocumentDetailed = ({ doc, searchData }) => {
     }
 
     return (
-        <Link key={doc.id} to={"/doc/" + doc.id} className="border p-4 rounded-md my-4 mr-4 shadow-lg flex flex-col h-64 hover:shadow-xl transition-all">
+        <Link key={doc.id} to={"/doc/" + doc.id} className="border p-4 rounded-md my-4 lg:mr-4 shadow-lg flex flex-col h-64 hover:shadow-xl transition-all">
             {doc.title.toLowerCase().includes(searchData.term.toLowerCase())
                 ? documentTitle()
                 : <p className="text-3xl ml-4">{doc.title}</p>}

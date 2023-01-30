@@ -54,8 +54,6 @@ const ParentChildTree = ({documentId, documentName}) => {
             : null
         }
         </>
-        
-        
     )
 }
 

@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react"
-import Home from "./pages/Home"
 import Organization from "./pages/Organization"
 import Document from "./pages/Document"
 import { Store } from "./StoreContext"
@@ -8,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Header from "./components/Header"
 import Documents from "./pages/Documents"
 import { getOrganization } from "./getOrgData"
+import MediaLibrary from "./pages/MediaLibrary"
 
 
 const App = () => {
@@ -26,13 +26,13 @@ const App = () => {
 }, [])
   return (
     <Router>
-      <div className="grid grid-cols-page">
+      <div className="lg:grid lg:grid-cols-page">
       <Header/>
       <Routes>
           <Route path="/" element={<Organization/>} />
           <Route path="/doc/:documentId" element={<Document/>} />
           <Route path="/docs/:category" element={<Documents/>} />
-          <Route path="/elements" element={<Home/>} />
+          <Route path="/media-library" element={<MediaLibrary/>}/>
           <Route path="*" element={<h1>No match</h1>}/>
         </Routes>
       </div>

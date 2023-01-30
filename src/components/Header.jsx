@@ -11,26 +11,29 @@ const Header = () => {
         return {"fontWeight": isActive ? 'bold' : ""}
     }
     return (
-        <section className="sticky h-min top-0">
+        <section className="sticky h-min top-0 bg-white z-20">
             <nav className="mb-8 mt-4 border-r-2 flex flex-col pl-4 pr-8">
-                <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/">Home</NavLink>
-                <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/docs/all">Documents</NavLink>
-                <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/elements">Testing</NavLink>
-                <div className="mt-8">
+                <div className="flex lg:flex-col">
+                    <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/">Home</NavLink>
+                    <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/docs/all">Documents</NavLink>
+                    <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/media-library">Media Library</NavLink>
+                </div>
+                
+                <div className="lg:mt-8">
                     {state.org
-                    ? <div className="flex flex-col">
+                    ? <div className="flex lg:flex-col">
                         {
                             state.org.categories.map((category) => {
-                                return <NavLink style={({isActive}) => setBold(isActive)} key={category.id} className="mb-2" to={"/docs/" + category.name}>{category.name}</NavLink>
+                                return <NavLink style={({isActive}) => setBold(isActive)} key={category.id} className="lg:mb-2" to={"/docs/" + category.name}>{category.name}</NavLink>
                             })
                         }
                     </div>
                     : null}
                 </div>
-                <div className="mt-16">
+                <div className="mt-16 hidden lg:block">
                     {pb.authStore.model
                     ? <p>Howdy, {pb.authStore.model.name}</p>
-                    : <LoginForm/>}
+                    : null}
                 </div>
                 
             </nav>
