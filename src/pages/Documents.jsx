@@ -3,11 +3,14 @@ import { Store } from "../StoreContext"
 import Search from "../components/Search"
 import { useState } from "react"
 import DocumentDetailed from "../components/DocumentDetailed"
+import { useParams } from "react-router-dom"
 
 const Documents = () => {
     const {state} = useContext(Store)
+    const {pb} = state
     const [searchData, setSearchData] = useState({term: "", author: "", category: "", team: ""})
     const [textLookup, setTextLookup] = useState({})
+    const { category } = useParams()
 
 
 
@@ -40,6 +43,7 @@ const Documents = () => {
         && (searchData.author === "" || doc.expand.author.name === searchData.author)
         && (searchData.category === "" || doc.expand.category && doc.expand.category.some((cat) => cat.name  === searchData.category))
         && (searchData.team === "" || doc.expand.team && doc.expand.team.some((team) => team.name  === searchData.team)))
+        && (category === "all" || doc.expand.category.some((cat) => cat.name === category))
     }
 
     const reduceJson = (array, init) => {
@@ -63,6 +67,20 @@ const Documents = () => {
         setTextLookup(newLookupText)
     }
 
+    const updateViews = async () => {
+        if (state.org && category !== "all") {
+            console.log(category)
+            const data = { "visits+": 1 };
+            const catId = state.org.categories.find((cat) => cat.name === category).id
+            const record = await pb.collection('buckets').update(catId, data);
+        }
+
+    }
+
+    useEffect(() => {
+        updateViews()
+    }, [category, state.org])
+
     useEffect(() => {
         calculateTextLookup()
     }, [state.org])
@@ -74,7 +92,6 @@ const Documents = () => {
                 <Search searchData={searchData} setSearchData={setSearchData} filterData={formatFilterData()}/>
                 <div className="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mx-4">
                         {state.org.allDocuments.map((doc) => {
-                            // console.log(reduceJson(doc.rich_text.root.children, ""))
                             return (
                                 (passSearchFilter(doc))
                                 ? <DocumentDetailed key={doc.id} doc={doc} searchData={searchData}/>

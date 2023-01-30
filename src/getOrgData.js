@@ -13,7 +13,7 @@ export const getOrganization = async (pb, dispatch) => {
     });
 
     const categories = await pb.collection('buckets').getFullList(200, {
-        sort: '+name',
+        sort: '-visits',
     });
 
     const teams = await pb.collection('teams').getFullList(200, {

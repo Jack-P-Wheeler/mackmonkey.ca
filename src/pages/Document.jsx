@@ -23,8 +23,7 @@ const Document = () => {
 
     useEffect(() => {
         getDocument()
-        
-    }, [])
+    }, [documentId])
 
     const saveDocumentUpdate = async () => {
         const data = {
