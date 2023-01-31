@@ -1,8 +1,51 @@
+import { useContext, useEffect, useState } from "react"
+import MediaUploadForm from "../components/MediaUploadForm"
+import { Store } from "../StoreContext"
+
 const MediaLibrary = () => {
+    const { state } = useContext(Store)
+    const { pb } = state
+
+    const [page, setPage] = useState(1)
+    const [media, setMedia] = useState([])
+    const [maxPage, setMaxPage] = useState()
+
+    const retrieveMedia = async () => {
+        const resultList = await pb.collection('media_library').getList(page, 2, {});
+        console.log(resultList)
+        setMaxPage(resultList.totalPages)
+        setMedia([...media, ...resultList.items])
+    }
+
+    useEffect(() => {
+        retrieveMedia()
+    }, [page])
+
     return (
         <section className="ml-4">
             <h1 className="text-4xl">Media Library</h1>
-            <p>Nothing much here yet...</p>
+            <section className="grid grid-cols-media">
+                <div className="flex flex-wrap">
+                    {
+                        media
+                            ? media.map((item) => {
+                                return (
+                                    <div className="mr-2 mt-2" key={item.id}>
+                                        <img src={"https://api.mackmonkey.ca/api/files/media_library/" + item.id + "/" + item.file + "?thumb=200x200"} className="rounded-md" />
+                                    </div>
+                                )
+                            })
+                            : <p>You have not uploaded any media...</p>
+                    }
+                </div>
+
+                <div>
+                    <MediaUploadForm/>
+                </div>
+            </section>
+            <button className="border-blue-500 border px-2 py-1 rounded-md bg-blue-400 shadow-inner font-bold text-white mt-4 hover:underline" onClick={(ev) => page < maxPage ? setPage(page + 1) : null}>
+                {page < maxPage ? "Load More" : "All pictures loaded"}
+            </button>
         </section>
     )
 }
