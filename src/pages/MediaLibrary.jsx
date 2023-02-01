@@ -36,7 +36,7 @@ const MediaLibrary = () => {
                             ? media.map((item) => {
                                 return (
                                     <button className="mr-2 mt-2 h-min" key={item.id} onClick={(() => setSelectedImage(item))}>
-                                        <img src={"https://api.mackmonkey.ca/api/files/media_library/" + item.id + "/" + item.file + "?thumb=200x200"} style={{"borderColor": item.id === selectedImage.id ? "red" : "transparent"}} className="rounded-md border-2" />
+                                        <img src={"https://api.mackmonkey.ca/api/files/media_library/" + item.id + "/" + item.file + "?thumb=200x200"} style={{"borderColor": item.id === selectedImage.id ? "gray" : "transparent"}} className="rounded-md border-2" />
                                     </button>
                                 )
                             })

@@ -12,7 +12,7 @@ const Header = () => {
     }
     return (
         <section className="h-min top-0 bg-white z-20">
-            <nav className="mb-8 mt-4 border-r-2 flex flex-col pl-4 pr-8 fixed">
+            <nav className="mb-8 mt-4 border-r-2 flex flex-col pl-4 pr-8 fixed h-screen">
                 <div className="flex lg:flex-col">
                     <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/">Home</NavLink>
                     <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/docs/all">Documents</NavLink>

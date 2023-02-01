@@ -4,6 +4,7 @@ import Search from "../components/Search"
 import { useState } from "react"
 import DocumentDetailed from "../components/DocumentDetailed"
 import { useParams } from "react-router-dom"
+import CreateDocumentForm from "../components/CreateDocumentForm"
 
 const Documents = () => {
     const {state} = useContext(Store)
@@ -11,6 +12,7 @@ const Documents = () => {
     const [searchData, setSearchData] = useState({term: "", author: "", category: "", team: ""})
     const [textLookup, setTextLookup] = useState({})
     const { category } = useParams()
+    
 
 
 
@@ -89,7 +91,9 @@ const Documents = () => {
         <section>
             {state.org
             ?<div>
+                <CreateDocumentForm/>
                 <Search searchData={searchData} setSearchData={setSearchData} filterData={formatFilterData()}/>
+
                 <div className="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mx-4">
                         {state.org.allDocuments.map((doc) => {
                             return (

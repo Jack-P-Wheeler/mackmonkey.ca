@@ -37,7 +37,7 @@ const MediaUploadForm = () => {
     }
 
     return (
-        <form className="border p-4 rounded-md shadow-lg grid grid-cols-3 grid-rows-4" onSubmit={(ev) => createAccount(ev, formData.title, formData.description, formData.file)}>
+        <form className="border p-4 rounded-md grid grid-cols-3 grid-rows-4" onSubmit={(ev) => createAccount(ev, formData.title, formData.description, formData.file)}>
 
                 <label className="flex items-center mb-2">Title</label>
                 <input className="p-1 border ml-2 rounded-md mb-2 col-span-2" value={formData.title} onChange={(ev) => setFormData({...formData, title:ev.target.value})} required></input>
