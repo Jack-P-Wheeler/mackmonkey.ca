@@ -6,6 +6,7 @@ import { getOrganization } from "../getOrgData"
 import InfoTagSmallButton from "../components/InfoTagSmallButton"
 import ParentChildTree from "../components/ParentChildTree"
 import { UilExclamationTriangle } from '@iconscout/react-unicons'
+import { setDocumentAction } from "../actions"
 
 
 const Document = () => {
@@ -23,6 +24,7 @@ const Document = () => {
         const record = await pb.collection('documents').update(documentId, data);
         console.log(documentRes)
         setDocData(await documentRes)
+        setDocumentAction(dispatch, documentRes)
     }
 
     useEffect(() => {
@@ -45,9 +47,11 @@ const Document = () => {
     }
 
     const deleteDocument = async () => {
-        await pb.collection('documents').delete(docData.id);
-        getOrganization(pb, dispatch)
-        navigate("/")
+        if (state.document){
+            await pb.collection('documents').delete(docData.id);
+            getOrganization(pb, dispatch)
+            navigate("/")
+        }
     }
 
     return (
@@ -76,7 +80,7 @@ const Document = () => {
                     <Editor docData={docData} pb={pb} setDocData={setDocData} saveDocumentUpdate={saveDocumentUpdate}/>
 
                     <div className="grid lg:grid-cols-2 gap-2">
-                        <ParentChildTree documentId={docData.id} documentName={docData.title}/>
+                        <ParentChildTree/>
                     </div>
                     {pb.authStore.model.id === docData.author
                         ? <button className="flex bg-red-700 rounded-md   mt-16" onClick={(ev) => deleteDocument()}>

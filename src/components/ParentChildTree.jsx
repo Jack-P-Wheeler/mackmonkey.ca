@@ -1,35 +1,37 @@
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Store } from "../StoreContext"
+import { setFamilyAction } from "../actions"
 
-const ParentChildTree = ({documentId, documentName}) => {
-    const {state} = useContext(Store)
-    const {pb} = state
-
-    const [family, setFamily] = useState()
+const ParentChildTree = () => {
+    const {state, dispatch} = useContext(Store)
+    const {pb, document, family, } = state
 
     const getFamily = async () => {
+        console.log(document.id)
         const parentChildRelationships = await pb.collection('document_relationships').getFullList(200, {
             sort: '-created',
-            id: documentId,
+            id: document.id,
             expand: 'parent_document, child_document'
         });
+        console.log(parentChildRelationships)
         let newFamily = {parent: "", children: []}
 
         await parentChildRelationships.forEach(relation => {
-            if (relation.expand.child_document.title === documentName) {
+            console.log(document.id)
+            if (relation.expand.child_document.id === document.id) {
                 newFamily.parent = relation.expand.parent_document
             } else {
-                newFamily.children = [...newFamily.children, relation.expand.child_document]
+                newFamily.children.push(relation.expand.child_document)
             }
         });
-
-        setFamily(newFamily)
+        setFamilyAction(dispatch, newFamily)
     }
+
+    
     
     useEffect(() => {
         getFamily()
-        console.log(documentId)
     }, [])
     
 
@@ -44,7 +46,7 @@ const ParentChildTree = ({documentId, documentName}) => {
                         : <Link to={"/docs/all"}>Back to Documents</Link>
                     }
                 </div>
-                <div className="border-b flex items-center justify-center"><p className="text-xl">{documentName}</p></div>
+                <div className="border-b flex items-center justify-center"><p className="text-xl">{document.title}</p></div>
                 <div className="flex items-center justify-center flex-col my-1">
                     {family.children.map((child) => {
                         return <div key={child.id} className="bg-slate-50 my-1"><a href={"/doc/" + child.id}>{child.title}</a></div>

@@ -23,6 +23,14 @@ const setOrg = (state, organization) => {
     return ({...state, org: organization})
 }
 
+const setDocument = (state, document) => {
+    return ({...state, document: document})
+}
+
+const setFamily = (state, family) => {
+    return ({...state, family: family})
+}
+
 const reducer = (state, action) => {
     switch (action.type) {
         case "SET_POSTS":
@@ -31,6 +39,10 @@ const reducer = (state, action) => {
             return updatePb(state, action.newPb)
         case "SET_ORG":
             return setOrg(state, action.organization)
+        case "SET_DOCUMENT":
+            return setDocument(state, action.document)
+        case "SET_FAMILY":
+            return setFamily(state, action.family)
         default:
             console.log(`No action of type "${action.type}"`)
             return state

@@ -18,3 +18,17 @@ export const setOrganizationAction = (dispatch, orgInfo) => {
         organization: orgInfo
     })
 }
+
+export const setDocumentAction = (dispatch, document) => {
+    dispatch({
+        type: "SET_DOCUMENT",
+        document: document
+    })
+}
+
+export const setFamilyAction = (dispatch, family) => {
+    dispatch({
+        type: "SET_FAMILY",
+        family: family
+    })
+}
