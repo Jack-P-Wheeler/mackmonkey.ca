@@ -1,7 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { Store } from "../StoreContext"
+import { getOrganization } from "../getOrgData"
 
 const CreateDocumentForm = () => {
     const [title, setTitle] = useState("")
+    const {state, dispatch} = useContext(Store)
+    const {pb} = state
 
     const createNewDocument = async (ev) => {
         ev.preventDefault()
@@ -12,7 +16,7 @@ const CreateDocumentForm = () => {
                 "title": title,
                 "category": [],
                 "team": [],
-                "rich_text": ""
+                "rich_text": '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
             };
 
             const record = await pb.collection('documents').create(data);

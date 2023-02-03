@@ -29,20 +29,19 @@ const MediaLibrary = () => {
             <h1 className="text-4xl">Media Library</h1>
             <section className="grid grid-cols-media grid-rows-1">
                 <div>
-
-                <div className="flex flex-wrap h-min">
-                    {
-                        media
-                            ? media.map((item) => {
-                                return (
-                                    <button className="mr-2 mt-2 h-min" key={item.id} onClick={(() => setSelectedImage(item))}>
-                                        <img src={"https://api.mackmonkey.ca/api/files/media_library/" + item.id + "/" + item.file + "?thumb=200x200"} style={{"borderColor": item.id === selectedImage.id ? "gray" : "transparent"}} className="rounded-md border-2" />
-                                    </button>
-                                )
-                            })
-                            : <p>You have not uploaded any media...</p>
-                    }
-                </div>
+                    <div className="flex flex-wrap h-min">
+                        {
+                            media
+                                ? media.map((item) => {
+                                    return (
+                                        <button className="mr-2 mt-2 h-min" key={item.id} onClick={(() => setSelectedImage(item))}>
+                                            <img src={"https://api.mackmonkey.ca/api/files/media_library/" + item.id + "/" + item.file + "?thumb=200x200"} style={{"borderColor": item.id === selectedImage.id ? "gray" : "transparent"}} className="rounded-md border-2" />
+                                        </button>
+                                    )
+                                })
+                                : <p>You have not uploaded any media...</p>
+                        }
+                    </div>
                 <button className="border-blue-500 border px-2 py-1 rounded-md bg-blue-400 shadow-inner font-bold text-white mt-4 hover:underline" onClick={(ev) => page < maxPage ? setPage(page + 1) : null}>
                 {page < maxPage ? "Load More" : "All pictures loaded"}
             </button>
