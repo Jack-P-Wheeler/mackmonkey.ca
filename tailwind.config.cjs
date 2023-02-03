@@ -13,6 +13,9 @@ module.exports = {
         // Complex site-specific column configuration
         'page': '200px 1fr',
         'media': '1fr 400px'
+      },
+      fontFamily: {
+        sans: "'Arimo', sans-serif;"
       }
     },
   },
