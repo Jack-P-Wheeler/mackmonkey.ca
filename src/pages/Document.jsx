@@ -4,7 +4,7 @@ import { Store } from "../StoreContext"
 import { getOrganization } from "../getOrgData"
 import InfoTagSmallButton from "../components/InfoTagSmallButton"
 import ParentChildTree from "../components/ParentChildTree"
-import { UilExclamationTriangle, UilSave } from '@iconscout/react-unicons'
+import { UilExclamationTriangle, UilSave, UilEdit, UilEye } from '@iconscout/react-unicons'
 import { setDocumentAction } from "../actions"
 import { marked } from 'marked';
 
@@ -77,6 +77,7 @@ const Document = () => {
         <section className="flex lg:justify-center">
             {docData && state.org
                 ? <div className="ml-4 mt-8p-4">
+
                     <div className="">
                         <input className="text-3xl w-full" value={docData.title} onChange={(ev) => setDocData({ ...docData, title: ev.target.value })}></input>
                         <div className="flex">
@@ -96,7 +97,32 @@ const Document = () => {
                         </div>
                     </div>
 
-                    <button onClick={() => setEdit(!edit)}>{edit ? "Edit" : "View"}</button>
+                    {pb.authStore.model.id === docData.author
+                        ? <div className="flex mt-16 justify-between">
+
+                            <div className="flex">
+                                <button className="flex bg-slate-500 rounded-md hover:underline text-white p-2 font-bold w-24 justify-center items-center mr-4" onClick={(ev) => setEdit(!edit)}>
+                                    {edit ? <UilEdit className="text-white" /> : <UilEye className="text-white" />}
+                                    <span className="leading-none ml-2">{edit ? "Edit" : "View"}</span>
+                                </button>
+
+                            <button className="border-blue-500 border p-2 rounded-md bg-blue-400 shadow-inner font-bold text-white flex hover:underline" label="Save" onClick={() => { saveDocumentUpdate() }}>
+                                <UilSave className="text-white" />
+                                Save
+                            </button>
+                            </div>
+
+
+                            <button className="flex bg-red-700 rounded-md hover:underline text-white p-2 font-bold" onClick={(ev) => deleteDocument()}>
+                                <div className="flex items-center px-2">
+                                    <UilExclamationTriangle className="text-white" />
+                                    Delete
+                                </div>
+                            </button>
+
+                        </div>
+
+                        : null}
 
                     <section className="w-[1024px] h-[1920px] border p-4 rounded-lg shadow-sm mt-4" id="markdown-page">
                         {edit
@@ -110,23 +136,7 @@ const Document = () => {
                     {/* <div className="grid lg:grid-cols-2 gap-2">
                         <ParentChildTree />
                     </div> */}
-                    {pb.authStore.model.id === docData.author
-                        ? <div className="flex mt-16 justify-between">
-                            <button className="border-blue-500 border p-2 rounded-md bg-blue-400 shadow-inner font-bold text-white flex hover:underline" label="Save" onClick={() => { saveDocumentUpdate() }}>
-                                <UilSave className="text-white" />
-                                Save
-                            </button>
 
-                            <button className="flex bg-red-700 rounded-md hover:underline text-white p-2 font-bold" onClick={(ev) => deleteDocument()}>
-                                <div className="flex items-center px-2">
-                                    <UilExclamationTriangle className="text-white" />
-                                    Delete
-                                </div>
-                            </button>
-
-                        </div>
-
-                        : null}
 
                 </div>
 

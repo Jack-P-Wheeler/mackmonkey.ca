@@ -1,10 +1,41 @@
 #markdown-page {
     h1 {
-        @apply text-5xl font-bold;
-        margin-bottom: 8px;
+        @apply text-5xl mb-4;
+    }
+
+    h2 {
+        @apply text-4xl mb-4;
+    }
+
+    h3 {
+        @apply text-3xl mb-4;
     }
 
     p {
-        margin-bottom: 16px;
+        @apply mb-8;
+    }
+
+    img {
+        width: 400px;
+    }
+
+    ul {
+        margin-bottom: 10px;
+        li {
+        list-style:disc;
+        margin-left: 2rem;
+        }
+    }
+
+    ol {
+        margin-bottom: 10px;
+        li {
+            list-style:decimal;
+            margin-left: 2rem;
+        }
+    }
+    hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }
