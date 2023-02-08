@@ -45,7 +45,7 @@ const Documents = () => {
         && (searchData.author === "" || doc.expand.author.name === searchData.author)
         && (searchData.category === "" || doc.expand.category && doc.expand.category.some((cat) => cat.name  === searchData.category))
         && (searchData.team === "" || doc.expand.team && doc.expand.team.some((team) => team.name  === searchData.team)))
-        && (category === "all" || doc.expand.category.some((cat) => cat.name === category))
+        && (category === "all" || doc.expand.category && doc.expand.category.some((cat) => cat.name === category))
     }
 
     const reduceJson = (array, init) => {
@@ -61,11 +61,11 @@ const Documents = () => {
 
     const calculateTextLookup = () => {
         let newLookupText = {}
-        if (state.org) {
-            state.org.allDocuments.forEach((doc) => {
-                newLookupText = {...newLookupText, [doc.id]: reduceJson(doc.rich_text.root.children, "")}
-            })
-        }
+        // if (state.org) {
+        //     state.org.allDocuments.forEach((doc) => {
+        //         newLookupText = {...newLookupText, [doc.id]: reduceJson(doc.rich_text.root.children, "")}
+        //     })
+        // }
         setTextLookup(newLookupText)
     }
 

@@ -1,0 +1,8 @@
+// /styles/globals.scss
+
+/* Tailwind base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./components/markdown.scss"
