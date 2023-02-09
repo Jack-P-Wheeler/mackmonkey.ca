@@ -16,6 +16,7 @@ const Header = () => {
                     <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/">Home</NavLink>
                     <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/docs/all">Documents</NavLink>
                     <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/media-library">Media Library</NavLink>
+                    <NavLink style={({isActive}) => setBold(isActive)} className="mr-4" to="/edit-buckets">Edit Buckets</NavLink>
                 </div>
                 
                 <div className="lg:mt-8">

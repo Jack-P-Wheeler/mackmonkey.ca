@@ -8,6 +8,7 @@ import Header from "./components/Header"
 import Documents from "./pages/Documents"
 import { getOrganization } from "./getOrgData"
 import MediaLibrary from "./pages/MediaLibrary"
+import EditBuckets from "./pages/EditBuckets"
 
 
 const App = () => {
@@ -33,7 +34,8 @@ const App = () => {
           <Route path="/doc/:documentId" element={<Document/>} />
           <Route path="/docs/:category" element={<Documents/>} />
           <Route path="/media-library" element={<MediaLibrary/>}/>
-          <Route path="*" element={<h1>No match</h1>}/>
+          <Route path="/edit-buckets" element={<EditBuckets/>}/>
+          <Route path="*" element={<h1>No page of this name, go back to whence you came...</h1>}/>
         </Routes>
       </div>
       
