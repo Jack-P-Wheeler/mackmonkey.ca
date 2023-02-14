@@ -1,15 +1,30 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { Store } from "../StoreContext"
 import InfoTagSmall from "./InfoTagSmall"
+import { getOrganization } from "../getOrgData"
 
 const CategoryCreator = () => {
+
+    const {state, dispatch} = useContext(Store)
+    const {pb} = state
     const [newCatName, setNewCatName] = useState("")
     const [selectedColor, setSelectedColor] = useState("#ef4444")
     const colors = ["#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16", "#22c55e", "#10b981", "#14b8a6", "#06b6d4", "#0ea5e9", "#3b82f6", "#6366f1", "#8b5cf6", "#a855f7", "#d946ef", "#ec4899"]
 
-    const saveNewCategory = (ev) => {
+    const saveNewCategory = async (ev) => {
         ev.preventDefault()
+
+        const data = {
+            "name": newCatName,
+            "color": selectedColor,
+        };
+        
+        const record = await pb.collection('buckets').create(data);
+        console.log(record)
+
         setNewCatName("")
         setSelectedColor("#ef4444")
+        getOrganization(pb, dispatch)
     }
 
     return (
