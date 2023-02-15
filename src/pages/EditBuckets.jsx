@@ -13,29 +13,33 @@ const EditBuckets = () => {
 
     return (
         state.org
-        ? <section className="ml-4 p-4 border rounded-md mt-2 text-left">
-            <table className="mb-4 border">
-                <tr className="bg-slate-50 border-b">
-                    <th className="p-4 text-neutral-400">Name</th>
-                    <th className="p-4 text-neutral-400">Color</th>
-                    <th className="p-4 text-neutral-400">Preview</th>
-                </tr>
-                {
-                    state.org.categories.map((cat) => {
-                        return <tr className="mr-2 border-b hover:bg-slate-50" key={cat.name}>
-                            <td className="px-4 border-r">{cat.name}</td>
-                            <td className="px-4 border-r">{cat.color}</td>
-                            <td className="px-4"><InfoTagSmall color={cat.color} name={cat.name} clickFunction = {() => {
-                                setSelectedCat(cat.name)
-                                setNewCatName(cat.name)
-                                setSelectedColor(cat.color)
-                                }}/></td>
-                        </tr>
-                    })
-                }
+        ? <section className="ml-4 p-4 border rounded-md mt-2 flex">
+            <table className="mb-4 border mr-8">
+                <thead>
+                    <tr className="bg-slate-50 border-b">
+                        <th className="p-4 text-neutral-400">Name</th>
+                        <th className="p-4 text-neutral-400">Color</th>
+                        <th className="p-4 text-neutral-400">Preview</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        state.org.categories.map((cat) => {
+                            return <tr className="mr-2 border-b hover:bg-slate-50" key={cat.name}>
+                                <td className="px-4 border-r">{cat.name}</td>
+                                <td className="px-4 border-r">{cat.color}</td>
+                                <td className="px-4"><InfoTagSmall color={cat.color} name={cat.name} clickFunction = {() => {
+                                    setSelectedCat(cat)
+                                    setNewCatName(cat.name)
+                                    setSelectedColor(cat.color)
+                                    }}/></td>
+                            </tr>
+                        })
+                    }
+                </tbody>
             </table>
             
-            <CategoryCreator newCatName={newCatName} setNewCatName={setNewCatName} selectedColor={selectedColor} setSelectedColor={setSelectedColor}/>
+            <CategoryCreator newCatName={newCatName} setNewCatName={setNewCatName} selectedColor={selectedColor} setSelectedColor={setSelectedColor} selectedCat={selectedCat} setSelectedCat={setSelectedCat}/>
         </section>
         : null
     )
