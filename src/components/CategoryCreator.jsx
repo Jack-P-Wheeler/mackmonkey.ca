@@ -3,12 +3,11 @@ import { Store } from "../StoreContext"
 import InfoTagSmall from "./InfoTagSmall"
 import { getOrganization } from "../getOrgData"
 
-const CategoryCreator = () => {
+const CategoryCreator = ({newCatName, setNewCatName, selectedColor, setSelectedColor}) => {
 
     const {state, dispatch} = useContext(Store)
     const {pb} = state
-    const [newCatName, setNewCatName] = useState("")
-    const [selectedColor, setSelectedColor] = useState("#ef4444")
+    
     const colors = ["#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16", "#22c55e", "#10b981", "#14b8a6", "#06b6d4", "#0ea5e9", "#3b82f6", "#6366f1", "#8b5cf6", "#a855f7", "#d946ef", "#ec4899"]
 
     const saveNewCategory = async (ev) => {
