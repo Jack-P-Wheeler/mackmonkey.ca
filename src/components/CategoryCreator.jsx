@@ -20,28 +20,27 @@ const CategoryCreator = ({newCatName, setNewCatName, selectedColor, setSelectedC
     
     const saveNewCategory = async (ev) => {
         ev.preventDefault()
-
         const data = {
             "name": newCatName,
             "color": selectedColor,
         };
-        
         const record = await pb.collection('buckets').create(data);
         console.log(record)
-
         resetForm()
     }
 
     const updateCategory = async (ev) => {
         ev.preventDefault()
-
         const data = {
             "name": newCatName,
             "color": selectedColor,
         };
-        
         const record = await pb.collection('buckets').update(selectedCat.id, data);
+        resetForm()
+    }
 
+    const deleteCategory = async () => {
+        const record = await pb.collection('buckets').delete(selectedCat.id);
         resetForm()
     }
 
@@ -65,7 +64,10 @@ const CategoryCreator = ({newCatName, setNewCatName, selectedColor, setSelectedC
                 <InfoTagSmall name={newCatName ? newCatName : "New Category"} color={selectedColor}/>
             </div>
             {selectedCat
-            ? <button role="submit" className="border-blue-500 border px-2 py-1 rounded-md bg-blue-400 shadow-inner font-bold text-white flex mt-2 hover:underline">Update</button>
+            ? <div className="flex">
+                <button role="submit" className="border-blue-500 border px-2 py-1 rounded-md bg-blue-400 shadow-inner font-bold text-white flex mt-2 hover:underline">Update</button>
+                <button type="button" className="border-red-500 border px-2 py-1 rounded-md bg-red-400 shadow-inner font-bold text-white flex mt-2 hover:underline" onClick={() => deleteCategory()}>Delete</button>
+            </div>
             : <button role="submit" className="border-blue-500 border px-2 py-1 rounded-md bg-blue-400 shadow-inner font-bold text-white flex mt-2 hover:underline">Save</button>}
             
         </form>
