@@ -39,9 +39,7 @@ const Document = () => {
         const documentRes = await pb.collection('documents').getOne(documentId, {
             expand: 'author, category',
         });
-        const data = { "visits+": 1 };
-        const record = await pb.collection('documents').update(documentId, data);
-        console.log(documentRes)
+
         setDocData(await documentRes)
         setDocumentAction(dispatch, documentRes)
     }

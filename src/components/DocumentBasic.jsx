@@ -8,10 +8,10 @@ const DocumentBasic = ({doc}) => {
     }
 
     return (
-        <Link to={"doc/" + doc.id} className="border p-4 rounded-md my-4 mr-4 shadow-lg flex flex-col h-64">
-            <p className="mb-4 text-3xl">{doc.title}</p>
+        <Link to={"doc/" + doc.id} className="border p-4 rounded-md my-4 mr-4 shadow-lg flex flex-col h-64 active:scale-90 transition-all">
+            <p className="mb-4 text-5xl">{doc.title}</p>
             <p className="italic mt-auto">Last updated: {formatDate(doc.updated)}</p>
-            <p className="font-bold">Created by: {doc.expand.author.name}</p>
+            {/* <p className="font-bold">Created by: {doc.expand.author.name}</p> */}
         </Link>
     )
 }
