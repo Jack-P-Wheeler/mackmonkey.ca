@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Store } from "../StoreContext"
-import CategoryCreator from "../components/CategoryCreator"
+import CategoryCreator from "../components/OrgAdmin/CategoryCreator"
 import InfoTagSmall from "../components/InfoTagSmall"
 import { useState } from "react"
 

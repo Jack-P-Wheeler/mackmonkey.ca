@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
-import { Store } from "../StoreContext"
-import InfoTagSmall from "./InfoTagSmall"
-import { getOrganization } from "../getOrgData"
+import { Store } from "../../StoreContext"
+import InfoTagSmall from "../InfoTagSmall"
+import { getOrganization } from "../../getOrgData"
 import { UilTimes } from '@iconscout/react-unicons'
 
 const CategoryCreator = ({newCatName, setNewCatName, selectedColor, setSelectedColor, selectedCat, setSelectedCat}) => {
